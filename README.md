@@ -52,25 +52,20 @@ python penntreebank.py <n> -J ptb/jvhw/<n-prefix>grams.txt
 ```
 You can use any output file name you want, but the `results_to_csv.py` script (#ptb-pml-and-ptb-vv)[below] assumes that the files will be called `unigrams.txt`, …, `septigrams.txt`. You can use any output directory you want, `results_to_csv.py` takes the directory name as its second argument. Saving the results to a known file is only important if you want to generate the evolution plots in the additional figure.
 
-### Penn Treebank, PML estimator
+### Penn Treebank, PML and VV estimators
+These involve two steps: First, preprocessing the data using a Python script; then, using a Matlab script to generate the estimates. (At time of writing, the estimators were only available in Matlab.)
+
+*Step 1 (preprocess the data):*
 ``` bash
 cd python
 mkdir -p ptb/indices
 python penntreebank.py <n> -Q ptb/indices/<n>grams.csv
 ```
-Then start Matlab in the `matlab` directory and run `ptb_pml.m`. After the script has completed, final estimates will be in `estimates` and the progression of the estimate with increasing sample length will be in the cell array `progression`.
 
-The file name `ptb/indices/<n>grams.csv` must be exactly as is: The Matlab script `ptb_vv.m` assumes the file will be in that location.
+*Step 2 (generate the estimates):* <br/>
+Start Matlab in the `matlab` directory and run `ptb_pml.m` for PML or `ptb_vv.m` for VV. After each script has completed, final estimates will be in `estimates` and the progression of the estimate with increasing sample length will be in the cell array `progression`, and the results will be saved to `pml.mat` or `vv.mat` respectively.
 
-### Penn Treebank, VV estimator
-``` bash
-cd python
-mkdir -p ptb/indices
-python penntreebank.py <n> -Q ptb/indices/<n>grams.csv
-```
-Then start Matlab in the `matlab` directory and run `ptb_vv.m`. After the script has completed, final estimates will be in `estimates` and the progression of the estimate with increasing sample length will be in the cell array `progression`.
-
-The file name `ptb/indices/<n>grams.csv` must be exactly as is: The Matlab script `ptb_vv.m` assumes the file will be in that location.
+The file name `ptb/indices/<n>grams.csv` must be exactly as is: The Matlab scripts assume the file will be in that location.
 
 ### Web 1T 5-gram, naïve approach
 ``` bash
