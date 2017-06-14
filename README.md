@@ -42,6 +42,7 @@ julia ptb_frequencies.jl <n>     # this generates files that the naïve estimato
 julia naive.jl ptb <n>           # this does not write to any file itself
                                  # pipe the last line using `>` if you want to save results
 ```
+If you're not running this on Stanford's AFS, you'll need to specify the location of the data files for `ptb_frequencies.jl` using the `--source-dir` option.
 
 ### Penn Treebank, JVHW estimator
 Make sure the JVHW symlinks are set up (see above).
@@ -74,6 +75,8 @@ julia naive.jl 1t5 <n>           # this does not write to any file itself
                                  # pipe using `>` if you want to save results
 ```
 
+For unigrams through trigrams, if you're not running this on Stanford's AFS, you'll need to specify the location of the data files using the `--directory` option. For quadrigrams and quintigrams, you'll always need to specify the location of the data files using the `--directory` option.
+
 ### Web 1T 5-gram, JVHW estimator
 ``` bash
 cd python
@@ -81,17 +84,21 @@ python web1t5gram_fingerprint.py <n> <n-prefix>grams-fingerprint.tsv
 python web1t5gram_entropy.py <n-prefix>grams-fingerprint.tsv
 ```
 
-You can use any file name you want, so long as the file name you pass to the first script is the same as the name you pass to the second script.
+You can use any file name you want, so long as the file name you pass to the first script (the output file) is the same as the name you pass to the second script (the input file).
+
+For unigrams through trigrams, if you're not running this on Stanford's AFS, you'll need to specify the location of the data files for (only) `web1t5gram_fingerprint.py` using the `--directory` option. For quadrigrams and quintigrams, you'll always need to specify the location of the data files using the `--directory` option.
 
 ### One Billion Words, JVHW and PML estimators
 The `-t` option gets it to examine the pretokenized data, not the raw data. The raw data is way too slow and contains lots of duplicates.
 ``` bash
 cd python
 mkdirs 1bw/entropy
-python onebillionwords.py 5 -tJP 1bw/entropy/<n-prefix>grams-pretokenized.txt
+python onebillionwords.py 5 -tJP 1bw/entropy/<n-prefix>grams-pretokenized.txt -d </path/to/git/root/>
 ```
 
-You can use any output file name you want, but the `results_to_csv.py` script (#ptb-pml-and-ptb-vv)[below] assumes that the files will be called `unigrams-pretokenized.txt`, …, `sexigrams-pretokenized.txt`. You can use any output directory you want, `results_to_csv.py` takes the directory name as its second argument. Saving the results to a known file is only important if you want to generate the evolution plots in the additional figure.
+`</path/to/git/root/>` should be replaced with the directory where you cloned the [1BW Git repository](https://github.com/ciprian-chelba/1-billion-word-language-modeling-benchmark).
+
+You can use any output file name you want, but the `results_to_csv.py` script [below](#ptb-pml-and-ptb-vv) assumes that the files will be called `unigrams-pretokenized.txt`, …, `sexigrams-pretokenized.txt`. You can use any output directory you want, `results_to_csv.py` takes the directory name as its second argument. Saving the results to a known file is only important if you want to generate the evolution plots in the additional figure.
 
 ## Generating evolution plots
 *Note: The entropy rate and entropy rate estimate plots in the report aren't done on Matlab, they're just plotted directly in LaTeX using data manually transferred from the results of running the above. These instructions are for the plots in the* Additional Figures *of the report.*
