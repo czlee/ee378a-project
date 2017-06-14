@@ -1,3 +1,13 @@
+% Generate a plot showing the evolution of conditional entropy with increasing
+% sample size. This script should be used for the following three plots:
+%   One Billion Words (1BW) with Jiantao-Venkat-Han-Weissman (JVHW)
+%   One Billion Words (1BW) with profile maximum likelihood (PML)
+%   Penn Treebank (PTB) with Jiantao-Venkat-Han-Weissman (JVHW)
+%
+% Chuan-Zheng Lee
+% EE378A project: Fundamental limits in language modeling
+% June 2017
+
 estimate_type = 'jvhw'; % 'jvhw' or 'pml'
 dataset = '1bw'; % '1bw' or 'ptb'
 % But not 'pml' and 'ptb'/'vv' together, for that use 'ptb_plots.m', because

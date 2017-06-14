@@ -1,3 +1,12 @@
+% Generate a plot showing the evolution of conditional entropy with increasing
+% sample size. This script should be used for the following two plots:
+%   Penn Treebank (PTB) with profile maximum likelihood (PML)
+%   Penn Treebank (PTB) with Valiant and Valiant (VV)
+%
+% Chuan-Zheng Lee
+% EE378A project: Fundamental limits in language modeling
+% June 2017
+
 method = 'pml';
 
 load(method)
